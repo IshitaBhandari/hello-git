@@ -39,7 +39,6 @@ class weather():
         print("done")
 
 
-
     def get_city():
         city = str(entry1.get())
 
@@ -168,7 +167,43 @@ class weather():
             self.label_weather_icon.grid(row=2, rowspan=2, column=0)
 
 
-weather()
+def show():
+    city = entry_city.get()
+    print(city)
+    for child in content_frame.winfo_children():
+        child.destroy()
+    weather(content_frame)
+
+root = Tk()
+root.wm_title("Sunshine")
+font = tkFont.Font(family="Helvetica", size=10)
+
+top_frame = Frame(root)
+top_frame.grid(row=0, columnspan=2, padx=4, pady=4)
+
+Label(top_frame, text="City", font=font).grid(row=0, column=0, sticky="W", padx=4, pady=4)
+
+entry_city = Entry(top_frame, font=font)
+entry_city.grid(row=0, column=1, padx=4, pady=4)
+entry_city.focus_set()
+
+content_frame = Frame(root)
+content_frame.grid(row=1, columnspan=2)
+
+button_city = Button(top_frame, text="Show Weather", command=show, font=font, relief=GROOVE)
+button_city.grid(row=1, columnspan=2, padx=4, pady=4)
+
+root.update()
+root.minsize(200, root.winfo_height())
+root.bind("<Return>", lambda x: show())     # invoke function on pressing enter
+
+# scaling
+root.columnconfigure(0, weight=1)
+root.columnconfigure(1, weight=1)
+root.rowconfigure(0, weight=1)
+root.rowconfigure(1, weight=1)
+
+root.mainloop()
 
 
 
